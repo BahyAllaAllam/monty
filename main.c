@@ -53,6 +53,11 @@ void excute(FILE *file, stack_t **stack, instruction_t *instructions)
 
 			if (strcmp(opcode, "push") == 0)
 			{
+				if (strcmp(argument, "+") == 0)
+				{
+					handle_unknown_instruction(line_number, opcode);
+					exit(EXIT_FAILURE);
+				}
 				push(stack, line_number, argument);
 				continue;
 			}
