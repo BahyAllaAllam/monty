@@ -28,7 +28,7 @@ void sub(stack_t **stack, unsigned int line_number)
  * @line_number: line_number
  * Return: Nothing
 */
-void div(stack_t **stack, unsigned int line_number)
+void divide(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp;
 

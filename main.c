@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
 		{"nop", &nop},
 		{"mod", &mod},
 		{"sub", &sub},
-		{"div", &div},
+		{"div", &divide},
 		{"mul", &mul},
 		{NULL, NULL}
 	};
