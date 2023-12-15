@@ -16,7 +16,7 @@ void pchar(stack_t **stack, unsigned int line_number)
 	}
 	ascii_value = (*stack)->n;
 
-	if (ascii_value < 0 || ascii_value > 127)
+	if (ascii_value < 0 || ascii_value > 127 || !isprint(ascii_value))
 	{
 		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
 		exit(EXIT_FAILURE);
@@ -37,11 +37,10 @@ void pstr(stack_t **stack, unsigned int line_number)
 	current = *stack;
 
 	(void)line_number;
-	while (!current && current->n != 0 && current->n >= 0 && current->n <= 127)
+
+	while (current != NULL && current->n != 0 && isprint(current->n))
 	{
 		putchar(current->n);
-		if (current->n == '\0')
-			break;
 		current = current->next;
 	}
 	putchar('\n');
@@ -57,6 +56,7 @@ void rotl(stack_t **stack, unsigned int line_number)
 	stack_t *last;
 
 	(void)line_number;
+
 	if (*stack != NULL && (*stack)->next != NULL)
 	{
 		last = *stack;
@@ -64,10 +64,10 @@ void rotl(stack_t **stack, unsigned int line_number)
 		while (last->next != NULL)
 			last = last->next;
 		last->next = *stack;
+		(*stack)->prev = last;
 		*stack = (*stack)->next;
+		(*stack)->prev->next = NULL;
 		(*stack)->prev = NULL;
-		last->next->next = NULL;
-		last->next->prev = last;
 	}
 }
 /**
@@ -81,6 +81,7 @@ void rotr(stack_t **stack, unsigned int line_number)
 	stack_t *last;
 
 	(void)line_number;
+
 	if (*stack != NULL && (*stack)->next != NULL)
 	{
 		last = *stack;
