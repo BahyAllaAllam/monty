@@ -40,10 +40,11 @@ void divide(stack_t **stack, unsigned int line_number)
 			fprintf(stderr, "L%d: division by zero\n", line_number);
 			exit(EXIT_FAILURE);
 		}
-		temp = (*stack)->next;
-		temp->n /= (*stack)->n;
-		*stack = temp;
-		temp->prev = NULL;
+		temp = *stack;
+		*stack = (*stack)->next;
+		(*stack)->n /= temp->n;
+		free(temp);
+		(*stack)->prev = NULL;
 	}
 	else
 	{
@@ -63,10 +64,11 @@ void mul(stack_t **stack, unsigned int line_number)
 
 	if (*stack != NULL && (*stack)->next != NULL)
 	{
-		temp = (*stack)->next;
-		temp->n *= (*stack)->n;
-		*stack = temp;
-		temp->prev = NULL;
+		temp = *stack;
+		*stack = (*stack)->next;
+		(*stack)->n *= temp->n;
+		free(temp);
+		(*stack)->prev = NULL;
 	}
 	else
 	{
@@ -91,10 +93,11 @@ void mod(stack_t **stack, unsigned int line_number)
 			fprintf(stderr, "L%d: division by zero\n", line_number);
 			exit(EXIT_FAILURE);
 		}
-		temp = (*stack)->next;
-		temp->n %= (*stack)->n;
-		*stack = temp;
-		temp->prev = NULL;
+		temp = *stack;
+		*stack = (*stack)->next;
+		(*stack)->n %= temp->n;
+		free(temp);
+		(*stack)->prev = NULL;
 	}
 	else
 	{
