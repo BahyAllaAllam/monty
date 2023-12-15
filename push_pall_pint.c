@@ -10,15 +10,28 @@
 void push(stack_t **stack, unsigned int line_number, char *argument)
 {
 	stack_t *new_node;
-	int value;
+	char *endptr;
+	long int value;
 
-	if (argument == NULL || !(*argument >= '0' && *argument <= '9'))
+	if (argument == NULL || *argument == '\0')
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	value = atoi(argument);
+	value = strtol(argument, &endptr, 10);
+
+	if (*endptr != '\0')
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	if (value > INT_MAX || value < INT_MIN)
+	{
+		fprintf(stderr, "L%d: value out of range\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
 	new_node = malloc(sizeof(stack_t));
 
 	if (new_node == NULL)
@@ -26,7 +39,7 @@ void push(stack_t **stack, unsigned int line_number, char *argument)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	new_node->n = value;
+	new_node->n = (int)value;
 	new_node->prev = NULL;
 	new_node->next = *stack;
 	if (*stack != NULL)
