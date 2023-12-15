@@ -116,6 +116,10 @@ int main(int argc, char *argv[])
 		{"sub", &sub},
 		{"div", &divide},
 		{"mul", &mul},
+		{"rotr", &rotr},
+		{"rotl", &rotl},
+		{"pstr", &pstr},
+		{"pchar", &pchar},
 		{NULL, NULL}
 	};
 
