@@ -23,7 +23,7 @@ void sub(stack_t **stack, unsigned int line_number)
 	}
 }
 /**
- * div - division
+ * divide - division
  * @stack: stack
  * @line_number: line_number
  * Return: Nothing
