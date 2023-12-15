@@ -11,10 +11,11 @@ void sub(stack_t **stack, unsigned int line_number)
 
 	if (*stack != NULL && (*stack)->next != NULL)
 	{
-		temp = (*stack)->next;
-		temp->n -= (*stack)->n;
-		*stack = temp;
-		temp->prev = NULL;
+		temp = *stack;
+		*stack = (*stack)->next;
+		(*stack)->n -= temp->n;
+		free(temp);
+		(*stack)->prev = NULL;
 	}
 	else
 	{
