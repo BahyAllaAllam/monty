@@ -42,6 +42,8 @@ void excute(FILE *file, stack_t **stack, instruction_t *instructions)
 	while (fgets(line, sizeof(line), file))
 	{
 		line_number++;
+		if (line[0] == '#')
+			continue;
 		opcode = strtok(line, " \t\n");
 		if (opcode != NULL && strcmp(opcode, "\n") != 0)
 		{
@@ -110,6 +112,10 @@ int main(int argc, char *argv[])
 		{"swap", &swap},
 		{"pop", &pop},
 		{"nop", &nop},
+		{"mod", &mod},
+		{"sub", &sub},
+		{"div", &div},
+		{"mul", &mul},
 		{NULL, NULL}
 	};
 
